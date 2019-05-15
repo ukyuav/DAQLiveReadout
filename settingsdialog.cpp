@@ -56,6 +56,7 @@
 #include <QLineEdit>
 #include <QSerialPortInfo>
 #include <QFileDialog>
+#include <QTime>
 
 static const char blankString[] = QT_TRANSLATE_NOOP("SettingsDialog", "N/A");
 
@@ -78,10 +79,11 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
     connect(m_ui->serialPortInfoListBox, QOverload<int>::of(&QComboBox::currentIndexChanged),
             this, &SettingsDialog::checkCustomDevicePathPolicy);
 
-    std::time_t t = std::time(nullptr);
-    std::ostringstream timeStream;
-    timeStream << std::put_time(std::gmtime(&t), "%FT%TZ.csv");
-    m_ui->fileNameLineEdit->setText(timeStream.str().c_str());
+    QDateTime now = QDateTime::currentDateTime();
+    QString timestamp = now.toString(QLatin1String("yyyy-MM-ddThh:mm"));
+    QString filename = QString::fromLatin1("%1.csv").arg(timestamp);
+    m_ui->fileNameLineEdit->setText(filename);
+
     fillPortsParameters();
     fillPortsInfo();
 

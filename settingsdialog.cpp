@@ -80,7 +80,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
             this, &SettingsDialog::checkCustomDevicePathPolicy);
 
     QDateTime now = QDateTime::currentDateTime();
-    QString timestamp = now.toString(QLatin1String("yyyy-MM-ddThh:mm"));
+    QString timestamp = now.toString(QLatin1String("yyyy-MM-ddThhmm"));
     QString filename = QString::fromLatin1("%1.csv").arg(timestamp);
     m_ui->fileNameLineEdit->setText(filename);
 
